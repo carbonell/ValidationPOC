@@ -18,7 +18,7 @@ public class Person
 
     public static RuleSet GetValidationRules()
     {
-        // Name Rule
+        // TODO: Create intuitive Fluent Interface for this
         var nameRule = new Rule(nameof(Name)).AddValidator(new NotNullValidator());
         var ageRule = new Rule(nameof(Age)).AddValidator(new GreaterThanValidator<int>(18));
         return new RuleSet(nameof(Person))
