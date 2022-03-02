@@ -18,9 +18,6 @@ public class Person
 
     public static RuleSet GetValidationRules()
     {
-        // TODO: Create intuitive Fluent Interface for this
-        // TODO: Enable easy generic type setting through the fluent interface
-
         var ruleBuilder = new RuleSetBuilder<Person>();
 
         ruleBuilder.RuleFor(r => r.Name).NotNull();
