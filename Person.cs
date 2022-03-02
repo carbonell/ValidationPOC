@@ -20,11 +20,12 @@ public class Person
     {
         // TODO: Create intuitive Fluent Interface for this
         // TODO: Enable easy generic type setting through the fluent interface
-        var nameRule = new Rule<string>(nameof(Name)).AddValidator(new NotNullValidator<string>());
-        var ageRule = new Rule<int>(nameof(Age)).AddValidator(new GreaterThanValidator<int>(18));
-        return new RuleSet(nameof(Person))
-                .AddRule(nameRule)
-                .AddRule(ageRule);
-    }
 
+        var ruleBuilder = new RuleSetBuilder<Person>();
+
+        ruleBuilder.RuleFor(r => r.Name).NotNull();
+        ruleBuilder.RuleFor(r => r.Age).GreaterThan(18);
+        return ruleBuilder.Build();
+
+    }
 }

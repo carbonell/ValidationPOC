@@ -51,7 +51,7 @@ public class RuleTests
     [Fact]
     public void Will_ThrowExceptionOnEmptyValidators()
     {
-        var rule = new Rule<int>("Rule");
+        var rule = new Rule<string>("Rule");
         string? value = "value";
         // Assert
         Assert.Throws<InvalidOperationException>(() => rule.Validate(value));

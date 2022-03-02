@@ -13,6 +13,11 @@ public class RuleSet
         Name = name;
     }
 
+    public RuleSet(string name, Dictionary<string, IRule> rules) : this(name)
+    {
+        _rules = rules;
+    }
+
     public RuleSet AddRule(IRule r)
     {
         // TODO: Validate duplicate dictionary keys

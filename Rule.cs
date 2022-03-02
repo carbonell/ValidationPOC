@@ -10,9 +10,10 @@ public interface IRule
     bool Validate(object? value);
 }
 
-public interface IRule<T>
+public interface IRule<T> : IRule
 {
     bool Validate(T value);
+    IRule<T> AddValidator(IValidator<T> validator);
 }
 public class Rule<T> : IRule, IRule<T>
 {
@@ -26,7 +27,7 @@ public class Rule<T> : IRule, IRule<T>
 
     protected ICollection<IValidator<T>> _validators = new List<IValidator<T>>();
 
-    public Rule<T> AddValidator(IValidator<T> validator)
+    public IRule<T> AddValidator(IValidator<T> validator)
     {
         _validators.Add(validator);
         return this;
@@ -56,4 +57,6 @@ public class Rule<T> : IRule, IRule<T>
         var val = (T)value!;
         return Validate(val);
     }
+
+
 }
