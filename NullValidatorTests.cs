@@ -9,7 +9,7 @@ public class NullValidatorTests
     {
         // Arrange
         var value = "value";
-        var validator = new NotNullValidator();
+        var validator = new NotNullValidator<string>();
         // Act
         var isValid = validator.Validate(value);
 
@@ -22,9 +22,9 @@ public class NullValidatorTests
     {
         // Arrange
         string? value = null;
-        var validator = new NotNullValidator();
+        var validator = new NotNullValidator<string>();
         // Act
-        var isValid = validator.Validate(value);
+        var isValid = validator.Validate(value!);
 
         // Assert
         Assert.False(isValid);

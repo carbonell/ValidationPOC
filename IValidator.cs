@@ -1,8 +1,9 @@
 
 namespace ValidationExperiments;
 
-public interface IValidator
+public interface IValidator<T>
 {
     public string ErrorCode { get; }
-    bool Validate(object o);
+    bool Validate(T value);
 }
+

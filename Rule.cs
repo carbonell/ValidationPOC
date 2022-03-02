@@ -4,7 +4,17 @@ using System.Linq;
 
 namespace ValidationExperiments;
 
-public class Rule
+public interface IRule
+{
+    public string Name { get; }
+    bool Validate(object? value);
+}
+
+public interface IRule<T>
+{
+    bool Validate(T value);
+}
+public class Rule<T> : IRule, IRule<T>
 {
     public Rule(string name)
     {
@@ -14,17 +24,16 @@ public class Rule
     protected ICollection<string> _errorCodes = new List<string>();
 
 
-    protected ICollection<IValidator> _validators = new List<IValidator>();
+    protected ICollection<IValidator<T>> _validators = new List<IValidator<T>>();
 
-    public Rule AddValidator(IValidator validator)
+    public Rule<T> AddValidator(IValidator<T> validator)
     {
         _validators.Add(validator);
         return this;
     }
 
-    // TODO: Discuss how to handle intended vs unintended nulls, and casting errors
     // TODO: Return ValidationResult object with an error code aggregation.
-    public bool Validate(object? value)
+    public bool Validate(T value)
     {
         if (!_validators.Any())
             throw new InvalidOperationException($"The {Name} doesn't have any validators set up.");
@@ -39,5 +48,12 @@ public class Rule
         }
 
         return !_errorCodes.Any();
+    }
+
+    // TODO: Discuss how to handle intended vs unintended nulls, and casting errors
+    public bool Validate(object? value)
+    {
+        var val = (T)value!;
+        return Validate(val);
     }
 }

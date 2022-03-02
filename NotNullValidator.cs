@@ -1,11 +1,11 @@
 namespace ValidationExperiments;
 
-public class NotNullValidator : IValidator
+public class NotNullValidator<T> : IValidator<T>
 {
     public string ErrorCode => "NotNull";
 
-    public bool Validate(object? o)
+    public bool Validate(T value)
     {
-        return o != null;
+        return value != null;
     }
 }

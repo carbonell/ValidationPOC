@@ -11,6 +11,22 @@ public class RuleSetTests
         var validationRules = Person.GetValidationRules();
 
         // Act
+        var nameValidationResult = validationRules.ValidateRule(nameof(Person.Name), person.Name);
+        var ageValidationResult = validationRules.ValidateRule(nameof(Person.Age), person.Age);
+
+        // Assert
+        Assert.True(nameValidationResult);
+        Assert.True(ageValidationResult);
+    }
+
+    [Fact]
+    public void Can_ValidateRuleInRuleSetWithGenericInterface()
+    {
+        // Arrange 
+        var person = new Person("John", 20);
+        var validationRules = Person.GetValidationRules();
+
+        // Act
         var nameValidationResult = validationRules.Validate(nameof(Person.Name), person.Name);
         var ageValidationResult = validationRules.Validate(nameof(Person.Age), person.Age);
 

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace ValidationExperiments;
 
-public class GreaterThanValidator<T> : IValidator
+public class GreaterThanValidator<T> : IValidator<T>
 {
     T _value;
     public GreaterThanValidator(T value)
@@ -12,10 +12,10 @@ public class GreaterThanValidator<T> : IValidator
 
     public string ErrorCode => "NotNull";
 
-    public bool Validate(object o)
+
+    public bool Validate(T value)
     {
-        T val = (T)o;
-        return Compare(val);
+        return Compare(value);
     }
 
     private bool Compare(T val)
