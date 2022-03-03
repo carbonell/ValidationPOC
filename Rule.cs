@@ -6,7 +6,8 @@ namespace ValidationExperiments;
 
 public interface IRule
 {
-    public string Name { get; }
+    string Name { get; }
+    string FieldOrPropertyName { get; }
     ValidationResult Validate(object? value);
 }
 
@@ -20,8 +21,16 @@ public class Rule<T> : IRule, IRule<T>
     public Rule(string name)
     {
         Name = name;
+        FieldOrPropertyName = name;
+    }
+
+    public Rule(string name, string fieldOrPropertyName)
+    {
+        Name = name;
+        FieldOrPropertyName = fieldOrPropertyName;
     }
     public string Name { get; set; }
+    public string FieldOrPropertyName { get; set; }
     protected ICollection<string> _errorCodes = new List<string>();
 
 
@@ -50,7 +59,7 @@ public class Rule<T> : IRule, IRule<T>
                 _errorCodes.Add(validator.ErrorCode);
         }
 
-        return new ValidationResult(_errorCodes.ToArray());
+        return new ValidationResult(this).AddError(_errorCodes.ToArray());
     }
 
     // TODO: Discuss how to handle intended vs unintended nulls, and casting errors

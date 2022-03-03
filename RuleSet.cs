@@ -28,18 +28,21 @@ public class RuleSet
         return this;
     }
 
-    public ValidationResult ValidateRule(string ruleName, object? value)
+    public IRule GetRule(string ruleName)
     {
         if (!_rules.ContainsKey(ruleName))
             throw new KeyNotFoundException();
-        return _rules[ruleName].Validate(value!);
+        return _rules[ruleName];
+    }
+
+    public ValidationResult ValidateRule(string ruleName, object? value)
+    {
+        return GetRule(ruleName).Validate(value!);
     }
 
     public ValidationResult Validate<T>(string ruleName, T value)
     {
-        if (!_rules.ContainsKey(ruleName))
-            throw new KeyNotFoundException();
-        return ((IRule<T>)_rules[ruleName]).Validate(value);
+        return ((IRule<T>)GetRule(ruleName)).Validate(value);
     }
 
 

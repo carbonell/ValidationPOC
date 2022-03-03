@@ -20,14 +20,30 @@ public class ValidationResult
         ErrorCodes = errorCodes;
     }
 
-
+    public string? RuleName { get; set; }
+    public string? FieldOrPropertyName { get; set; }
     public ValidationResult()
     {
     }
 
-    public ValidationResult(params string[] errorMessages)
+    public ValidationResult(string ruleName)
     {
-        _errorCodes = errorMessages.ToList();
+        RuleName = ruleName;
+    }
+
+    public ValidationResult(string ruleName, string fieldOrPropertyName) : this(ruleName)
+    {
+        FieldOrPropertyName = fieldOrPropertyName;
+    }
+
+    public ValidationResult(IRule rule) : this(rule.Name, rule.FieldOrPropertyName)
+    {
+    }
+
+    public ValidationResult AddError(params string[] errorCodes)
+    {
+        _errorCodes.AddRange(errorCodes.ToList());
+        return this;
     }
 
     public bool IsValid { get { return !ErrorCodes.Any(); } }
@@ -42,12 +58,6 @@ public class ValidationResult
         return string.Join(separator, ErrorCodes);
     }
 
-    public ValidationResult Append(ValidationResult result)
-    {
-        _errorCodes.AddRange(result.ErrorCodes);
-        return this;
-    }
-
     public static ValidationResult Success() => new ValidationResult();
-    public static ValidationResult Failed(params string[] errorMessages) => new ValidationResult(errorMessages);
+    public static ValidationResult Failed(params string[] errorMessages) => new ValidationResult().AddError(errorMessages);
 }
