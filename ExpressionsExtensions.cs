@@ -31,7 +31,7 @@ public static class ExpressionExtensions
                 propertyLambda.ToString()));
 
         if (type != propInfo.ReflectedType &&
-            !type.IsSubclassOf(propInfo.ReflectedType))
+            !type.IsSubclassOf(propInfo.ReflectedType!))
             throw new ArgumentException(string.Format(
                 "Expression '{0}' refers to a property that is not from type {1}.",
                 propertyLambda.ToString(),
