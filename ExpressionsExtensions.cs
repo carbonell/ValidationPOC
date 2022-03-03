@@ -18,13 +18,13 @@ public static class ExpressionExtensions
     Expression<Func<TSource, TProperty>> propertyLambda)
     {
 
-        MemberExpression member = propertyLambda.Body as MemberExpression;
+        MemberExpression member = (MemberExpression)propertyLambda.Body;
         if (member == null)
             throw new ArgumentException(string.Format(
                 "Expression '{0}' refers to a method, not a property.",
                 propertyLambda.ToString()));
 
-        PropertyInfo propInfo = member.Member as PropertyInfo;
+        PropertyInfo propInfo = (PropertyInfo)member.Member;
         if (propInfo == null)
             throw new ArgumentException(string.Format(
                 "Expression '{0}' refers to a field, not a property.",

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ValidationExperiments;
@@ -21,6 +22,8 @@ public class RuleSet
     public RuleSet AddRule(IRule r)
     {
         // TODO: Validate duplicate dictionary keys
+        if (_rules.ContainsKey(r.Name))
+            throw new InvalidOperationException();
         _rules.Add(r.Name, r);
         return this;
     }
