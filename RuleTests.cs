@@ -14,10 +14,10 @@ public class RuleTests
         var value = "value";
 
         // Act
-        var isValid = rule.Validate(value);
+        var result = rule.Validate(value);
 
         // Assert
-        Assert.True(isValid);
+        Assert.True(result.IsValid);
     }
 
     [Fact]
@@ -28,10 +28,10 @@ public class RuleTests
         string? value = null;
 
         // Act
-        var isValid = rule.Validate(value!);
+        var result = rule.Validate(value!);
 
         // Assert
-        Assert.False(isValid);
+        Assert.False(result.IsValid);
     }
 
     // [Fact] TODO: Decide on the right behavior for this
@@ -42,10 +42,10 @@ public class RuleTests
         string? value = null;
 
         // Act
-        var isValid = rule.Validate(value);
+        var result = rule.Validate(value);
 
         // Assert
-        Assert.False(isValid);
+        Assert.False(result.IsValid);
     }
 
     [Fact]

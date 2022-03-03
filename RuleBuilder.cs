@@ -1,18 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace ValidationExperiments;
 
 public class RuleSetBuilder<TModel>
 {
     private Dictionary<string, IRule> _rules = new Dictionary<string, IRule>();
+    private Dictionary<string, PropertyInfo> _propertyInfo = new Dictionary<string, PropertyInfo>();
     public IRule<TProperty> RuleFor<TProperty>(Expression<Func<TModel, TProperty>> expression)
     {
         Type type = typeof(TModel);
         var propertyInfo = type.GetPropertyInfo(expression);
         var rule = new Rule<TProperty>(propertyInfo.Name);
         _rules.Add(rule.Name, rule);
+        _propertyInfo.Add(rule.Name, propertyInfo);
         return rule;
     }
 

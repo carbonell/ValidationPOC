@@ -15,8 +15,8 @@ public class RuleSetTests
         var ageValidationResult = validationRules.ValidateRule(nameof(Person.Age), person.Age);
 
         // Assert
-        Assert.True(nameValidationResult);
-        Assert.True(ageValidationResult);
+        Assert.True(nameValidationResult.IsValid);
+        Assert.True(ageValidationResult.IsValid);
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public class RuleSetTests
         var ageValidationResult = validationRules.Validate(nameof(Person.Age), person.Age);
 
         // Assert
-        Assert.True(nameValidationResult);
-        Assert.True(ageValidationResult);
+        Assert.True(nameValidationResult.IsValid);
+        Assert.True(ageValidationResult.IsValid);
     }
 }

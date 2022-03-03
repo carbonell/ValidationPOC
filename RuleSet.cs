@@ -25,14 +25,14 @@ public class RuleSet
         return this;
     }
 
-    public bool ValidateRule(string ruleName, object? value)
+    public ValidationResult ValidateRule(string ruleName, object? value)
     {
         if (!_rules.ContainsKey(ruleName))
             throw new KeyNotFoundException();
         return _rules[ruleName].Validate(value!);
     }
 
-    public bool Validate<T>(string ruleName, T value)
+    public ValidationResult Validate<T>(string ruleName, T value)
     {
         if (!_rules.ContainsKey(ruleName))
             throw new KeyNotFoundException();
