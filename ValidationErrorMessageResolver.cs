@@ -4,24 +4,24 @@ using System.Linq;
 
 namespace ValidationExperiments;
 
-public class ErrorMessageResolver
+public class ValidationErrorMessageResolver
 {
 
     protected ITokenReplacer _tokenReplacer = new DefaultTokenReplacer();
 
     protected ICollection<IErrorMessageProvider> _validationProviders = new List<IErrorMessageProvider>();
 
-    public ErrorMessageResolver()
+    public ValidationErrorMessageResolver()
     {
         _validationProviders.Add(EnglishValidationMessages.Load());
     }
 
-    public ErrorMessageResolver(ITokenReplacer tokenReplacer)
+    public ValidationErrorMessageResolver(ITokenReplacer tokenReplacer)
     {
         _tokenReplacer = tokenReplacer;
     }
 
-    public ErrorMessageResolver(ICollection<IErrorMessageProvider> validationProviders)
+    public ValidationErrorMessageResolver(ICollection<IErrorMessageProvider> validationProviders)
     {
         _validationProviders = validationProviders;
     }

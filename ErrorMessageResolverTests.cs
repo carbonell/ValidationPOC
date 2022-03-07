@@ -13,7 +13,7 @@ public class ErrorMessageResolverTests
         // Arrange
         var propertyName = "Name";
         var errorCode = "NotNull";
-        var resolver = new ErrorMessageResolver();
+        var resolver = new ValidationErrorMessageResolver();
         var culture = new CultureInfo("en-US");
 
         // Act
@@ -30,7 +30,7 @@ public class ErrorMessageResolverTests
         var propertyName = "Name";
         var errorCode = "NotNull";
         var errorProvider = new List<IErrorMessageProvider> { new TestErrorProvider() };
-        var resolver = new ErrorMessageResolver(errorProvider);
+        var resolver = new ValidationErrorMessageResolver(errorProvider);
         var culture = new CultureInfo("en-US");
 
         // Act
