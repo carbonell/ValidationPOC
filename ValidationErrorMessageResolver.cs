@@ -28,10 +28,10 @@ public class ValidationErrorMessageResolver
 
     public string GetErrorMessage(CultureInfo culture, string fieldOrPropertyName, string errorCode)
     {
-        return BuildTemplate(fieldOrPropertyName, GetValidationMessageProvider(culture, errorCode));
+        return BuildTemplate(fieldOrPropertyName, GetErrorTemplate(culture, errorCode));
     }
 
-    private string GetValidationMessageProvider(CultureInfo culture, string errorCode)
+    protected string GetErrorTemplate(CultureInfo culture, string errorCode)
     {
         var provider = _validationProviders.FirstOrDefault(p => p.Cultures.Any(c => c.Name == culture.Name));
         if (provider == null)
