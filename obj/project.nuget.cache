@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "gJXQNiqWlTAZateLUcSea9O1t2uVRMWO65wCmSK7B3SPnDh7FUCLm9KhiJ/XQzIZkU0/AgDCcPip5xwEnPEdDw==",
+  "dgSpecHash": "HUNThz9W9el+sMwDXyIR9mcXN8C+4N91eXUWvyT0Inz0+isGHu+T+Zwk755Q1TjdwXjIsQuOs0jCD7QOdSRKQg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Lad\\source\\repos\\CSharp\\ValidationExperiments\\ValidationExperiments.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lad\\.nuget\\packages\\coverlet.collector\\3.1.0\\coverlet.collector.3.1.0.nupkg.sha512",
+    "C:\\Users\\Lad\\.nuget\\packages\\fluentvalidation\\10.3.6\\fluentvalidation.10.3.6.nupkg.sha512",
     "C:\\Users\\Lad\\.nuget\\packages\\microsoft.codecoverage\\16.11.0\\microsoft.codecoverage.16.11.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
     "C:\\Users\\Lad\\.nuget\\packages\\microsoft.net.test.sdk\\16.11.0\\microsoft.net.test.sdk.16.11.0.nupkg.sha512",

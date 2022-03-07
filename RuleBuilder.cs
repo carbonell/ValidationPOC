@@ -5,6 +5,7 @@ using System.Reflection;
 
 namespace ValidationExperiments;
 
+// https://blog.zhaytam.com/2020/11/17/expression-trees-property-getter/
 public class RuleSetBuilder<TModel>
 {
     private Dictionary<string, IRule> _rules = new Dictionary<string, IRule>();

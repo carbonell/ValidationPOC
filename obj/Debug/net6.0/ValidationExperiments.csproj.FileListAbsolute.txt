@@ -97,3 +97,4 @@ c:\Users\Lad\source\repos\CSharp\ValidationExperiments\obj\Debug\net6.0\refint\V
 c:\Users\Lad\source\repos\CSharp\ValidationExperiments\obj\Debug\net6.0\ValidationExperiments.pdb
 c:\Users\Lad\source\repos\CSharp\ValidationExperiments\obj\Debug\net6.0\ValidationExperiments.genruntimeconfig.cache
 c:\Users\Lad\source\repos\CSharp\ValidationExperiments\obj\Debug\net6.0\ref\ValidationExperiments.dll
+c:\Users\Lad\source\repos\CSharp\ValidationExperiments\bin\Debug\net6.0\FluentValidation.dll

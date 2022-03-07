@@ -7,7 +7,7 @@ public class RuleSet
     public string Name { get; set; }
 
     // TODO: Evaluate using a ReadOnly Dictionary
-    protected Dictionary<string, IRule> _rules = new Dictionary<string, IRule>();
+    protected Dictionary<string, IRule> _rules = new();
 
     public RuleSet(string name)
     {
@@ -35,15 +35,18 @@ public class RuleSet
         return _rules[ruleName];
     }
 
-    public ValidationResult ValidateRule(string ruleName, object? value)
+    public IRule<T> GetRule<T>(string ruleName)
+    {
+        return ((IRule<T>)GetRule(ruleName));
+    }
+
+    public RuleResult ValidateRule(string ruleName, object? value)
     {
         return GetRule(ruleName).Validate(value!);
     }
 
-    public ValidationResult Validate<T>(string ruleName, T value)
+    public RuleResult Validate<T>(string ruleName, T value)
     {
-        return ((IRule<T>)GetRule(ruleName)).Validate(value);
+        return GetRule<T>(ruleName).Validate(value);
     }
-
-
 }
