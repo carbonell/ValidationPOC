@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Globalization;
 using Xunit;
 
@@ -19,6 +20,31 @@ public class ErrorMessageResolverTests
         var errorMessage = resolver.GetErrorMessage(culture, propertyName, errorCode);
 
         // Assert
-        Assert.Equal("Name should not be empty", errorMessage);
+        Assert.Equal("Name should not be empty.", errorMessage);
     }
+
+    [Fact]
+    public void Can_ResolveErrorMessageWithDefaultValue()
+    {
+        // Arrange
+        var propertyName = "Name";
+        var errorCode = "NotNull";
+        var errorProvider = new List<IValidationMessageProvider> { new TestErrorProvider() };
+        var resolver = new ErrorMessageResolver(errorProvider);
+        var culture = new CultureInfo("en-US");
+
+        // Act
+        var errorMessage = resolver.GetErrorMessage(culture, propertyName, errorCode);
+
+        // Assert
+        Assert.Equal("Name has an invalid value.", errorMessage);
+
+    }
+}
+
+internal class TestErrorProvider : IValidationMessageProvider
+{
+    public CultureInfo[] Cultures => new[] { new CultureInfo("en-US") };
+
+    public Dictionary<string, string> Messages => new();
 }

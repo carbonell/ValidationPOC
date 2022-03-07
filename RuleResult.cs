@@ -15,6 +15,8 @@ public class RuleResult
         protected set { }
     }
 
+    // private Dictionary<string, Dictionary<string,string>>
+
     protected List<string> _errorCodes = new List<string>();
     public RuleResult(List<string> errorCodes)
     {
@@ -23,6 +25,7 @@ public class RuleResult
 
     public string? RuleName { get; set; }
     public string? FieldOrPropertyName { get; set; }
+    public Dictionary<string, string> AdditionalValidationMessageArguments => new();
     public RuleResult()
     {
     }
