@@ -29,7 +29,7 @@ public class ErrorMessageResolverTests
         // Arrange
         var propertyName = "Name";
         var errorCode = "NotNull";
-        var errorProvider = new List<IValidationMessageProvider> { new TestErrorProvider() };
+        var errorProvider = new List<IErrorMessageProvider> { new TestErrorProvider() };
         var resolver = new ErrorMessageResolver(errorProvider);
         var culture = new CultureInfo("en-US");
 
@@ -42,7 +42,7 @@ public class ErrorMessageResolverTests
     }
 }
 
-internal class TestErrorProvider : IValidationMessageProvider
+internal class TestErrorProvider : IErrorMessageProvider
 {
     public CultureInfo[] Cultures => new[] { new CultureInfo("en-US") };
 

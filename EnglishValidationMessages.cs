@@ -3,14 +3,14 @@ using System.Globalization;
 
 namespace ValidationExperiments;
 
-public interface IValidationMessageProvider
+public interface IErrorMessageProvider
 {
     CultureInfo[] Cultures { get; }
     Dictionary<string, string> Messages { get; }
 
 }
 
-public class EnglishValidationMessages : IValidationMessageProvider
+public class EnglishValidationMessages : IErrorMessageProvider
 {
     public CultureInfo[] Cultures => new[]{
             new CultureInfo("en-US")

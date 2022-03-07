@@ -9,7 +9,7 @@ public class ErrorMessageResolver
 
     protected ITokenReplacer _tokenReplacer = new DefaultTokenReplacer();
 
-    protected ICollection<IValidationMessageProvider> _validationProviders = new List<IValidationMessageProvider>();
+    protected ICollection<IErrorMessageProvider> _validationProviders = new List<IErrorMessageProvider>();
 
     public ErrorMessageResolver()
     {
@@ -21,7 +21,7 @@ public class ErrorMessageResolver
         _tokenReplacer = tokenReplacer;
     }
 
-    public ErrorMessageResolver(ICollection<IValidationMessageProvider> validationProviders)
+    public ErrorMessageResolver(ICollection<IErrorMessageProvider> validationProviders)
     {
         _validationProviders = validationProviders;
     }
