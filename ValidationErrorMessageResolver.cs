@@ -4,13 +4,8 @@ using System.Linq;
 
 namespace ValidationExperiments;
 
-public class ValidationErrorMessageResolver
+public class ValidationErrorMessageResolver : AbstractErrorMessageResolver
 {
-
-    protected ITokenReplacer _tokenReplacer = new DefaultTokenReplacer();
-
-    protected ICollection<IErrorMessageProvider> _validationProviders = new List<IErrorMessageProvider>();
-
     public ValidationErrorMessageResolver()
     {
         _validationProviders.Add(EnglishValidationMessages.Load());
@@ -26,7 +21,7 @@ public class ValidationErrorMessageResolver
         _validationProviders = validationProviders;
     }
 
-    public string GetErrorMessage(CultureInfo culture, string fieldOrPropertyName, string errorCode)
+    public string GetErrorMessage(CultureInfo culture, string fieldOrPropertyName, string errorCode, IEnumerable<MessageParameter> additionalMessageParameters)
     {
         return BuildTemplate(fieldOrPropertyName, GetErrorTemplate(culture, errorCode));
     }

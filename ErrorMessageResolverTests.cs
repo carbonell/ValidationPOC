@@ -15,9 +15,10 @@ public class ErrorMessageResolverTests
         var errorCode = "NotNull";
         var resolver = new ValidationErrorMessageResolver();
         var culture = new CultureInfo("en-US");
+        var messageParameters = new List<MessageParameter>();
 
         // Act
-        var errorMessage = resolver.GetErrorMessage(culture, propertyName, errorCode);
+        var errorMessage = resolver.GetErrorMessage(culture, propertyName, errorCode, messageParameters);
 
         // Assert
         Assert.Equal("Name should not be empty.", errorMessage);
@@ -32,9 +33,10 @@ public class ErrorMessageResolverTests
         var errorProvider = new List<IErrorMessageProvider> { new TestErrorProvider() };
         var resolver = new ValidationErrorMessageResolver(errorProvider);
         var culture = new CultureInfo("en-US");
+        var messageParameters = new List<MessageParameter>();
 
         // Act
-        var errorMessage = resolver.GetErrorMessage(culture, propertyName, errorCode);
+        var errorMessage = resolver.GetErrorMessage(culture, propertyName, errorCode, messageParameters);
 
         // Assert
         Assert.Equal("Name has an invalid value.", errorMessage);

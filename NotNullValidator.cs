@@ -6,7 +6,7 @@ public class NotNullValidator<T> : IValidator<T>
 {
     public string ErrorCode => "NotNull";
 
-    public Dictionary<string, string> AdditionalValidationMessageArguments => new();
+    public IEnumerable<MessageParameter> AdditionalMessageParameters => new List<MessageParameter>();
 
     public bool Validate(T value)
     {

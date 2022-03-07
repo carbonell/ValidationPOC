@@ -46,6 +46,7 @@ public class Rule<T> : IRule, IRule<T>
     public RuleResult Validate(T value)
     {
         var errorCodes = new List<string>();
+        var ruleResult = new RuleResult();
         if (!_validators.Any())
             throw new InvalidOperationException($"The {Name} doesn't have any validators set up.");
 
@@ -55,10 +56,10 @@ public class Rule<T> : IRule, IRule<T>
         {
             isValid = validator.Validate(value!);
             if (!isValid)
-                errorCodes.Add(validator.ErrorCode);
+                ruleResult.AddError(validator.ErrorCode, validator.AdditionalMessageParameters);
         }
 
-        return new RuleResult(this).AddError(errorCodes.ToArray());
+        return ruleResult;
     }
 
     // TODO: Discuss how to handle intended vs unintended nulls, and casting errors

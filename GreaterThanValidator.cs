@@ -12,9 +12,9 @@ public class GreaterThanValidator<T> : IValidator<T>
 
     public string ErrorCode => "NotNull";
 
-    public Dictionary<string, string> AdditionalValidationMessageArguments => new()
-    {
-        { "GreaterThanValue", _value?.ToString() ?? "" }
+
+    public IEnumerable<MessageParameter> AdditionalMessageParameters => new List<MessageParameter>{
+        new MessageParameter("GreaterThanValue", _value?.ToString() ?? "")
     };
 
     public bool Validate(T value)

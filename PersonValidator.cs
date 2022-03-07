@@ -13,12 +13,16 @@ public class PersonValidator : AbstractValidator<Person>
         RuleFor(r => r.Name).Custom((name, context) =>
         {
             var ruleResult = rule.Validate(name!);
+            var errorResolver = new ValidationErrorMessageResolver();
             if (!ruleResult.IsValid)
             {
+
                 foreach (var errorCode in ruleResult.ErrorCodes)
                 {
-                    var failure = new ValidationFailure(ruleResult.FieldOrPropertyName, @"{PropertyName} must not be empty");
-                    failure.ErrorCode = GetErrorMessage(errorCode);
+                    var fieldName = ruleResult.FieldOrPropertyName ?? "";
+                    var message = errorResolver.GetErrorMessage(System.Globalization.CultureInfo.CurrentCulture, fieldName, errorCode.Key, errorCode.Value);
+
+                    var failure = new ValidationFailure(fieldName, message);
                     context.AddFailure(failure);
                 }
             }

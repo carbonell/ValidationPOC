@@ -12,10 +12,7 @@ public interface IValidator<T> : IValidator
 public interface IValidator
 {
     public string ErrorCode { get; }
-    public Dictionary<string, string> AdditionalValidationMessageArguments { get; }
-
-
-
+    public IEnumerable<MessageParameter> AdditionalMessageParameters { get; }
 }
 
 

@@ -6,47 +6,39 @@ namespace ValidationExperiments;
 // TODO: USE THIS ON RULE RESULT
 public class RuleResult
 {
-    public IReadOnlyCollection<string> ErrorCodes
+
+
+    public IReadOnlyDictionary<string, IEnumerable<MessageParameter>> ErrorCodes => _errorCodes;
+
+    protected Dictionary<string, IEnumerable<MessageParameter>> _errorCodes = new();
+    public RuleResult(Dictionary<string, IEnumerable<MessageParameter>> errorCodes)
     {
-        get
-        {
-            return _errorCodes;
-        }
-        protected set { }
+        _errorCodes = errorCodes;
     }
 
-    // private Dictionary<string, Dictionary<string,string>>
-
-    protected List<string> _errorCodes = new List<string>();
-    public RuleResult(List<string> errorCodes)
-    {
-        ErrorCodes = errorCodes;
-    }
-
-    public string? RuleName { get; set; }
     public string? FieldOrPropertyName { get; set; }
     public Dictionary<string, string> AdditionalValidationMessageArguments => new();
     public RuleResult()
     {
     }
 
-    public RuleResult(string ruleName)
-    {
-        RuleName = ruleName;
-    }
-
-    public RuleResult(string ruleName, string fieldOrPropertyName) : this(ruleName)
+    public RuleResult(string fieldOrPropertyName)
     {
         FieldOrPropertyName = fieldOrPropertyName;
     }
 
-    public RuleResult(IRule rule) : this(rule.Name, rule.FieldOrPropertyName)
+    public RuleResult(IRule rule) : this(rule.FieldOrPropertyName)
     {
     }
 
-    public RuleResult AddError(params string[] errorCodes)
+    public RuleResult AddError(string errorCode)
     {
-        _errorCodes.AddRange(errorCodes.ToList());
+        _errorCodes.Add(errorCode, new List<MessageParameter>());
+        return this;
+    }
+    public RuleResult AddError(string errorCode, IEnumerable<MessageParameter> messageParameters)
+    {
+        _errorCodes.Add(errorCode, messageParameters);
         return this;
     }
 
@@ -63,5 +55,6 @@ public class RuleResult
     }
 
     public static RuleResult Success() => new RuleResult();
-    public static RuleResult Failed(params string[] errorMessages) => new RuleResult().AddError(errorMessages);
+    public static RuleResult Failed(string errorCode, IEnumerable<MessageParameter> messageParameters) => new RuleResult().AddError(errorCode, messageParameters);
+    public static RuleResult Failed(string errorCode) => new RuleResult().AddError(errorCode);
 }
