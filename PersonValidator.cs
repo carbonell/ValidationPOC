@@ -8,7 +8,8 @@ public class PersonValidator : AbstractValidator<Person>
     {
         var ruleSet = Person.GetValidationRules();
         var nameRule = ruleSet.GetRule<string>(nameof(Person.Name));
-        RuleFor(r => r.Name).WithDomainRule(nameRule, "Name");
-        RuleFor(r => r.Age).WithDomainRule(ruleSet.GetRule(nameof(Person.Age)), "Age");
+        var errorResolver = new ValidationErrorMessageResolver();
+        RuleFor(r => r.Name).WithDomainRule(nameRule, errorResolver, "Name");
+        RuleFor(r => r.Age).WithDomainRule(ruleSet.GetRule(nameof(Person.Age)), errorResolver, "Age");
     }
 }

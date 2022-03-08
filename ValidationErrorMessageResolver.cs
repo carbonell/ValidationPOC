@@ -4,7 +4,12 @@ using System.Linq;
 
 namespace ValidationExperiments;
 
-public class ValidationErrorMessageResolver : AbstractErrorMessageResolver
+public interface IValidationErrorMessageResolver
+{
+    string GetErrorMessage(CultureInfo culture, string fieldOrPropertyName, string errorCode, IEnumerable<MessageParameter> additionalMessageParameters);
+}
+
+public class ValidationErrorMessageResolver : AbstractErrorMessageResolver, IValidationErrorMessageResolver
 {
     public ValidationErrorMessageResolver()
     {
