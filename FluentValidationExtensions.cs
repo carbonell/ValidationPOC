@@ -16,10 +16,9 @@ public static class FluentValidationExtensions
             {
                 foreach (var errorCode in ruleResult.ErrorCodes)
                 {
-                    var fieldName = propertyName;
-                    var message = errorResolver.GetErrorMessage(CultureInfo.CurrentCulture, fieldName, errorCode.Key, errorCode.Value);
+                    var message = errorResolver.GetErrorMessage(CultureInfo.CurrentCulture, propertyName, errorCode.Key, errorCode.Value);
 
-                    var failure = new ValidationFailure(fieldName, message);
+                    var failure = new ValidationFailure(context.PropertyName, message);
                     context.AddFailure(failure);
                 }
             }
