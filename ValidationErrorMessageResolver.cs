@@ -23,7 +23,7 @@ public class ValidationErrorMessageResolver : AbstractErrorMessageResolver
 
     public string GetErrorMessage(CultureInfo culture, string fieldOrPropertyName, string errorCode, IEnumerable<MessageParameter> additionalMessageParameters)
     {
-        return BuildTemplate(fieldOrPropertyName, GetErrorTemplate(culture, errorCode));
+        return BuildTemplate(GetErrorTemplate(culture, errorCode), fieldOrPropertyName, additionalMessageParameters);
     }
 
     protected string GetErrorTemplate(CultureInfo culture, string errorCode)
@@ -45,10 +45,14 @@ public class ValidationErrorMessageResolver : AbstractErrorMessageResolver
         }
     }
 
-    private string BuildTemplate(string fieldOrPropertyName, string errorTemplate)
+    private string BuildTemplate(string errorTemplate, string fieldOrPropertyName, IEnumerable<MessageParameter> messageParameters)
     {
         Dictionary<string, string> parameters = new Dictionary<string, string>();
         parameters.Add("FieldOrPropertyName", fieldOrPropertyName);
+        foreach (var p in messageParameters)
+        {
+            parameters.Add(p.Name, p.Value);
+        }
         errorTemplate = _tokenReplacer.BuildStringFromTemplate(errorTemplate, parameters);
         return errorTemplate;
     }

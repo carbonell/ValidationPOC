@@ -16,20 +16,11 @@ public class RuleResult
         _errorCodes = errorCodes;
     }
 
-    public string? FieldOrPropertyName { get; set; }
     public Dictionary<string, string> AdditionalValidationMessageArguments => new();
     public RuleResult()
     {
     }
 
-    public RuleResult(string fieldOrPropertyName)
-    {
-        FieldOrPropertyName = fieldOrPropertyName;
-    }
-
-    public RuleResult(IRule rule) : this(rule.FieldOrPropertyName)
-    {
-    }
 
     public RuleResult AddError(string errorCode)
     {

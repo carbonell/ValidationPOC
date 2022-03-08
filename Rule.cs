@@ -7,7 +7,6 @@ namespace ValidationExperiments;
 public interface IRule
 {
     string Name { get; }
-    string FieldOrPropertyName { get; }
     RuleResult Validate(object? value);
 }
 
@@ -21,16 +20,8 @@ public class Rule<T> : IRule, IRule<T>
     public Rule(string name)
     {
         Name = name;
-        FieldOrPropertyName = name;
-    }
-
-    public Rule(string name, string fieldOrPropertyName)
-    {
-        Name = name;
-        FieldOrPropertyName = fieldOrPropertyName;
     }
     public string Name { get; set; }
-    public string FieldOrPropertyName { get; set; }
 
     protected ICollection<IValidator<T>> _validators = new List<IValidator<T>>();
 
@@ -42,7 +33,6 @@ public class Rule<T> : IRule, IRule<T>
 
 
 
-    // TODO: Return ValidationResult object with an error code aggregation.
     public RuleResult Validate(T value)
     {
         var errorCodes = new List<string>();
@@ -62,7 +52,7 @@ public class Rule<T> : IRule, IRule<T>
         return ruleResult;
     }
 
-    // TODO: Discuss how to handle intended vs unintended nulls, and casting errors
+    // TODO: Discuss how to handle casting errors (casting errors shouldn't silently fail)
     public RuleResult Validate(object? value)
     {
         T? val = default;

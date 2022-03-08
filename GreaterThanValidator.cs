@@ -10,7 +10,7 @@ public class GreaterThanValidator<T> : IValidator<T>
         _value = value;
     }
 
-    public string ErrorCode => "NotNull";
+    public string ErrorCode => "GreaterThan";
 
 
     public IEnumerable<MessageParameter> AdditionalMessageParameters => new List<MessageParameter>{

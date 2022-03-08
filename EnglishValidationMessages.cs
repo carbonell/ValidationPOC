@@ -20,6 +20,7 @@ public class EnglishValidationMessages : IErrorMessageProvider
     public Dictionary<string, string> Messages => new()
     {
         { "NotNull", "{FieldOrPropertyName} should not be empty." },
+        { "GreaterThan", "{FieldOrPropertyName} should be greater than {GreaterThanValue}." },
         { "Default", "{FieldOrPropertyName} has an invalid value." },
     };
 
