@@ -11,6 +11,14 @@ public interface IValidationErrorMessageResolver
 
 public class ValidationErrorMessageResolver : AbstractErrorMessageResolver, IValidationErrorMessageResolver
 {
+    private readonly Dictionary<string, string> _cache = new();
+
+    public ValidationErrorMessageResolver(Dictionary<string, string> cache, ITokenReplacer tokenReplacer)
+    {
+        _cache = cache;
+        _tokenReplacer = tokenReplacer;
+    }
+
     public ValidationErrorMessageResolver()
     {
         _validationProviders.Add(EnglishValidationMessages.Load());
@@ -28,7 +36,13 @@ public class ValidationErrorMessageResolver : AbstractErrorMessageResolver, IVal
 
     public string GetErrorMessage(CultureInfo culture, string fieldOrPropertyName, string errorCode, IEnumerable<MessageParameter> additionalMessageParameters)
     {
-        return BuildTemplate(GetErrorTemplate(culture, errorCode), fieldOrPropertyName, additionalMessageParameters);
+        var key = GetErrorKey(culture, fieldOrPropertyName, errorCode, additionalMessageParameters);
+        if (!_cache.ContainsKey(key))
+        {
+            var template = BuildTemplate(GetErrorTemplate(culture, errorCode), fieldOrPropertyName, additionalMessageParameters);
+            _cache.Add(key, string.Intern(template));
+        }
+        return _cache[key];
     }
 
     protected string GetErrorTemplate(CultureInfo culture, string errorCode)
@@ -48,6 +62,12 @@ public class ValidationErrorMessageResolver : AbstractErrorMessageResolver, IVal
         {
             return "{FieldOrPropertyName} has an invalid value.";
         }
+    }
+
+    private string GetErrorKey(CultureInfo culture, string fieldOrPropertyName, string errorCode, IEnumerable<MessageParameter> additionalMessageParameters)
+    {
+        var parameters = string.Join('-', additionalMessageParameters.Select(s => s.Value));
+        return $"{culture.Name}-{fieldOrPropertyName}-{errorCode}" + (!string.IsNullOrEmpty(parameters) ? $"-{parameters}" : "");
     }
 
     private string BuildTemplate(string errorTemplate, string fieldOrPropertyName, IEnumerable<MessageParameter> messageParameters)
